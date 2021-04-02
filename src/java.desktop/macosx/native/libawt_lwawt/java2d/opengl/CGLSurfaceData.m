@@ -315,7 +315,7 @@ OGLSD_Flush(JNIEnv *env)
         CGLSDOps *dstCGLOps = (CGLSDOps *)dstOps->privOps;
         CGLLayer *layer = (CGLLayer*)dstCGLOps->layer;
         if (layer != NULL) {
-            [JNFRunLoop performOnMainThreadWaiting:NO withBlock:^(){
+            [ThreadUtilities performOnMainThreadWaiting:NO block:^(){
                 AWT_ASSERT_APPKIT_THREAD;
                 [layer setNeedsDisplay];
             }];
@@ -429,8 +429,8 @@ Java_sun_java2d_opengl_CGLSurfaceData_validate
         OGLContext *oglc = cglsdo->configInfo->context;
         CGLCtxInfo *ctxinfo = (CGLCtxInfo *)oglc->ctxInfo;
 
-JNF_COCOA_ENTER(env);
+JNI_COCOA_ENTER(env);
         [ctxinfo->context update];
-JNF_COCOA_EXIT(env);
+JNI_COCOA_EXIT(env);
     }
 }

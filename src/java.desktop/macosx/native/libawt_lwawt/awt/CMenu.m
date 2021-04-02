@@ -23,7 +23,6 @@
  * questions.
  */
 
-#import <JavaNativeFoundation/JavaNativeFoundation.h>
 #import <JavaRuntimeSupport/JavaRuntimeSupport.h>
 
 
@@ -220,7 +219,7 @@ Java_sun_lwawt_macosx_CMenu_nativeSetMenuTitle
 {
 JNI_COCOA_ENTER(env);
     // Set the menu's title.
-    [((CMenu *)jlong_to_ptr(menuObject)) setJavaMenuTitle:JNFJavaToNSString(env, label)];
+    [((CMenu *)jlong_to_ptr(menuObject)) setJavaMenuTitle:JavaStringToNSString(env, label)];
 JNI_COCOA_EXIT(env);
 }
 
@@ -233,10 +232,10 @@ JNIEXPORT void JNICALL
 Java_sun_lwawt_macosx_CMenu_nativeAddSeparator
 (JNIEnv *env, jobject peer, jlong menuObject)
 {
-JNF_COCOA_ENTER(env);
+JNI_COCOA_ENTER(env);
     // Add a separator item.
     [((CMenu *)jlong_to_ptr(menuObject))addSeparator];
-JNF_COCOA_EXIT(env);
+JNI_COCOA_EXIT(env);
 }
 
 /*
